@@ -21,7 +21,7 @@ This project is part of a blog series on Value Objects in PHP:
 2. [Advanced Value Objects in PHP 8](https://dev.to/cnastasi/advanced-value-objects-in-php-8-1lp0)
 3. [Value Object in PHP 8: Entities](https://dev.to/cnastasi/value-object-in-php-8-entities-1jce)
 4. [Value Object in PHP 8: Build your own type system](https://dev.to/cnastasi/value-object-in-php-8-build-your-own-type-system-5970)
-5. **[Value Objects in PHP 8: A Game Changer](BLOG_ARTICLE.md)** (this project)
+5. **[Value Objects in PHP 8: Let's introduce a functional approach](https://dev.to/cnastasi/value-objects-in-php-8-lets-introduce-a-functional-approach-3aan)** (this project)
 
 ## 📋 Requirements
 
