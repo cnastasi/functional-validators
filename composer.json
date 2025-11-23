@@ -1,0 +1,52 @@
+{
+  "name": "cnastasi/functional-validators",
+  "description": "A PHP 8.5+ library implementing Value Objects with functional validation using pipes, functors, and union types",
+  "version": "0.1.0",
+  "type": "library",
+  "keywords": [
+    "value-objects",
+    "validation",
+    "functional-programming",
+    "php8.5",
+    "pipes",
+    "functor",
+    "union-types"
+  ],
+  "minimum-stability": "stable",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Christian Nastasi",
+      "email": "christian.nastasi@gmail.com"
+    }
+  ],
+  "support": {
+    "issues": "https://github.com/cnastasi/functional-validators/issues",
+    "source": "https://github.com/cnastasi/functional-validators"
+  },
+  "require": {
+    "php": "^8.5"
+  },
+  "require-dev": {
+    "pestphp/pest": "^4.1"
+  },
+  "autoload": {
+    "psr-4": {
+      "CN\\FunctionalValidators\\": "src/",
+      "CN\\FunctionalValidators\\Examples\\": "examples/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Tests\\": "tests/"
+    }
+  },
+  "scripts": {
+    "test": "pest"
+  },
+  "config": {
+    "allow-plugins": {
+      "pestphp/pest-plugin": true
+    }
+  }
+}
