@@ -1,6 +1,6 @@
 <?php
 
-namespace ValueObjects\Validators;
+namespace CN\FunctionalValidators\Validators;
 
 readonly class IntegerValue extends ValidationContext
 {

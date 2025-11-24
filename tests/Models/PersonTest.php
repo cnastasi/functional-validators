@@ -1,7 +1,7 @@
 <?php
 
 use CN\FunctionalValidators\Examples\Person;
-use ValueObjects\Errors\MultipleFieldErrorsBag;
+use CN\FunctionalValidators\Errors\MultipleFieldErrorsBag;
 
 test('creates valid person', function () {
     $person = Person::create('John Doe', 'john@example.com', 30);

@@ -2,10 +2,10 @@
 
 namespace CN\FunctionalValidators\Examples;
 
-use ValueObjects\Errors\ErrorsBag;
-use ValueObjects\Errors\Failable;
-use ValueObjects\Errors\FailableSuccess;
-use ValueObjects\Validators\StringValue;
+use CN\FunctionalValidators\Errors\ErrorsBag;
+use CN\FunctionalValidators\Errors\Failable;
+use CN\FunctionalValidators\Errors\FailableSuccess;
+use CN\FunctionalValidators\Validators\StringValue;
 
 readonly final class Name implements Failable
 {

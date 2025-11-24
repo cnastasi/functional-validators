@@ -1,6 +1,6 @@
 <?php
 
-namespace ValueObjects\Errors;
+namespace CN\FunctionalValidators\Errors;
 
 /**
  * Collection of errors organized by field name

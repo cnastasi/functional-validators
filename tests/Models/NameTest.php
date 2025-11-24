@@ -1,7 +1,7 @@
 <?php
 
 use CN\FunctionalValidators\Examples\Name;
-use ValueObjects\Errors\ErrorsBag;
+use CN\FunctionalValidators\Errors\ErrorsBag;
 
 test('creates valid name', function () {
     $name = Name::create('John Doe');

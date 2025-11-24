@@ -1,7 +1,7 @@
 <?php
 
 use CN\FunctionalValidators\Examples\Age;
-use ValueObjects\Errors\ErrorsBag;
+use CN\FunctionalValidators\Errors\ErrorsBag;
 
 test('creates valid age', function () {
     $age = Age::create(25);

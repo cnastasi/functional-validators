@@ -1,7 +1,7 @@
 <?php
 
 use CN\FunctionalValidators\Examples\Password;
-use ValueObjects\Errors\ErrorsBag;
+use CN\FunctionalValidators\Errors\ErrorsBag;
 
 test('creates valid password with all requirements', function () {
     $password = Password::create('MyP@ssw0rd');

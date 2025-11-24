@@ -1,7 +1,7 @@
 <?php
 
 use CN\FunctionalValidators\Examples\Email;
-use ValueObjects\Errors\ErrorsBag;
+use CN\FunctionalValidators\Errors\ErrorsBag;
 
 test('creates valid email', function () {
     $email = Email::create('john@example.com');

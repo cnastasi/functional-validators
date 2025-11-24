@@ -1,9 +1,9 @@
 <?php
 
-namespace ValueObjects\Validators;
+namespace CN\FunctionalValidators\Validators;
 
-use ValueObjects\Errors\ErrorsBag;
-use ValueObjects\Errors\MultipleFieldErrorsBag;
+use CN\FunctionalValidators\Errors\ErrorsBag;
+use CN\FunctionalValidators\Errors\MultipleFieldErrorsBag;
 
 /**
  * Handles validation of multiple value objects for entity creation

@@ -3,8 +3,8 @@
 use CN\FunctionalValidators\Examples\Age;
 use CN\FunctionalValidators\Examples\Email;
 use CN\FunctionalValidators\Examples\Name;
-use ValueObjects\Errors\MultipleFieldErrorsBag;
-use ValueObjects\Validators\MultipleValidationContext;
+use CN\FunctionalValidators\Errors\MultipleFieldErrorsBag;
+use CN\FunctionalValidators\Validators\MultipleValidationContext;
 
 test('creates context with all valid values', function () {
     $context = MultipleValidationContext::setup(

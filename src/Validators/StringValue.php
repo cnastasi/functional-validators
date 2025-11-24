@@ -1,6 +1,6 @@
 <?php
 
-namespace ValueObjects\Validators;
+namespace CN\FunctionalValidators\Validators;
 
 readonly class StringValue extends ValidationContext {
     public static function from(mixed $value): ValidationContext

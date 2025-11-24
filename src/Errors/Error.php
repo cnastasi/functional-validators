@@ -1,6 +1,6 @@
 <?php
 
-namespace ValueObjects\Errors;
+namespace CN\FunctionalValidators\Errors;
 
 /**
  * Simple error data structure containing only a message

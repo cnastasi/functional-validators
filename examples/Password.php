@@ -2,11 +2,11 @@
 
 namespace CN\FunctionalValidators\Examples;
 
-use ValueObjects\Errors\ErrorsBag;
-use ValueObjects\Errors\Failable;
-use ValueObjects\Errors\FailableSuccess;
-use ValueObjects\Models\SensitiveParameter;
-use ValueObjects\Validators\StringValue;
+use CN\FunctionalValidators\Errors\ErrorsBag;
+use CN\FunctionalValidators\Errors\Failable;
+use CN\FunctionalValidators\Errors\FailableSuccess;
+use CN\FunctionalValidators\Models\SensitiveParameter;
+use CN\FunctionalValidators\Validators\StringValue;
 
 readonly final class Password implements Failable
 {

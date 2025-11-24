@@ -2,8 +2,8 @@
 
 namespace CN\FunctionalValidators\Examples;
 
-use ValueObjects\Errors\MultipleFieldErrorsBag;
-use ValueObjects\Validators\MultipleValidationContext;
+use CN\FunctionalValidators\Errors\MultipleFieldErrorsBag;
+use CN\FunctionalValidators\Validators\MultipleValidationContext;
 
 readonly final class Person
 {

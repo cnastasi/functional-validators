@@ -1,9 +1,9 @@
 <?php
 
-namespace ValueObjects\Validators;
+namespace CN\FunctionalValidators\Validators;
 
-use ValueObjects\Errors\Error;
-use ValueObjects\Errors\ErrorsBag;
+use CN\FunctionalValidators\Errors\Error;
+use CN\FunctionalValidators\Errors\ErrorsBag;
 
 /**
  * Validation Context Pattern
