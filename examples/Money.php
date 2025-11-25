@@ -26,12 +26,12 @@ readonly final class Money implements Failable
         /** @var ValidationContext $context */
         $context = $value
                 |> StringValue::from(...)
-                // Check if is empty
                 |> StringValue::notEmpty("Money string cannot be empty")
-                // Strip leading/trailing whitespace
-                |> StringValue::trim()
-                // Extract amount and currency from the string
-                |> StringValue::regex('/^(\d+(?:\.\d{1,2})?)([€$])$/u', "Invalid money format. Expected format: '100.00€' or '100.00$'")
+                |> StringValue::trim()  // Strip leading/trailing whitespace
+                |> StringValue::regex(  // Extract amount and currency from the string
+                    '/^(\d+(?:\.\d{1,2})?)([€$])$/u',
+                    "Invalid money format. Expected format: '100.00€' or '100.00$'"
+                )
                 // Extract amount and currency from the regex match
                 |> ArrayValue::mapKeys([1 => 'amount', 2 => 'currency'])
                 |> ArrayValue::map(
@@ -41,13 +41,11 @@ readonly final class Money implements Failable
                         // Parse currency to Currency Enum
                         'currency' => Money::parseCurrency($toParse['currency']),
                     ])
-                // Validate that currency is supported (very rare case)
-                |> ArrayValue::validateArray(
+                |> ArrayValue::validateArray( // Validate that currency is supported (very rare case)
                     fn(array $parsed) => $parsed['currency'] !== null,
                     "Unsupported currency symbol"
                 )
-                // Create the Money object
-                |> ArrayValue::map(
+                |> ArrayValue::map( // Create the Money object
                     fn(array $parsed) => self::create($parsed['amount'], $parsed['currency'])
                 );
 
