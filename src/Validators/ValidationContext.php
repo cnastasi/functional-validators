@@ -99,14 +99,59 @@ readonly class ValidationContext
     /**
      * Map the value if validation is still valid
      * Useful for transformations during validation
+     * 
+     * @internal Use ValidationContext::map() for pipe chains
      */
-    public function map(callable $mapper): self
+    protected function applyMap(callable $mapper): static
     {
         if ($this->hasErrors()) {
             return $this;
         }
         
-        return new self($mapper($this->value), $this->errors);
+        return new static($mapper($this->value), $this->errors);
+    }
+
+    /**
+     * Static map function for use in pipe chains
+     * Returns a closure that applies the mapper to the context's value
+     * 
+     * @param callable $mapper Function that transforms the value
+     * @return \Closure Closure that takes ValidationContext and returns ValidationContext
+     */
+    public static function map(callable $mapper): \Closure
+    {
+        return static fn(ValidationContext $context) => $context->applyMap($mapper);
+    }
+
+    /**
+     * Static mapArray function for use in pipe chains
+     * Maps array values only if the value is an array, otherwise passes through
+     * 
+     * @param callable $mapper Function that transforms the array
+     * @return \Closure Closure that takes ValidationContext and returns ValidationContext
+     */
+    public static function mapArray(callable $mapper): \Closure
+    {
+        return static fn(ValidationContext $context) => 
+            is_array($context->getValue())
+                ? $context->applyMap($mapper)
+                : $context;
+    }
+
+    /**
+     * Static validateArray function for use in pipe chains
+     * Validates array values only if the value is an array, otherwise passes through
+     * 
+     * @param callable $predicate Function that validates the array
+     * @param string $errorMessage Error message if validation fails
+     * @return \Closure Closure that takes ValidationContext and returns ValidationContext
+     */
+    public static function validateArray(callable $predicate, string $errorMessage): \Closure
+    {
+        return static fn(ValidationContext $context) => 
+            is_array($context->getValue())
+                ? $context->validate($predicate, $errorMessage)
+                : $context;
     }
 
     /**

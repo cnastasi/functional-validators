@@ -116,4 +116,45 @@ readonly class StringValue extends ValidationContext {
             $message
         );
     }
+
+    /**
+     * Trim whitespace from the string
+     */
+    public static function trim(): \Closure
+    {
+        return static fn(ValidationContext $context) => $context->applyMap(
+            fn(string $value) => trim($value)
+        );
+    }
+
+    /**
+     * Validate string matches a regex pattern and extract matches
+     * If valid, transforms the value to an array containing the full match and captured groups
+     * 
+     * @param string $pattern Regex pattern (should include capturing groups)
+     * @param ?string $errorMessage Custom error message if pattern doesn't match
+     * @return \Closure Validation closure
+     */
+    public static function regex(string $pattern, ?string $errorMessage = null): \Closure
+    {
+        $message = $errorMessage ?? "String does not match required pattern";
+
+        return static function (ValidationContext $context) use ($pattern, $message) {
+            $value = $context->getValue();
+            
+            if (!is_string($value)) {
+                return $context->addError($message);
+            }
+
+            $matches = [];
+            $isValid = preg_match($pattern, $value, $matches) === 1;
+
+            if (!$isValid) {
+                return $context->addError($message);
+            }
+
+            // Transform value to matches array (full match + captured groups)
+            return $context->applyMap(fn() => $matches);
+        };
+    }
 }
