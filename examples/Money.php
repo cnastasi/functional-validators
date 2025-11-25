@@ -26,27 +26,27 @@ readonly final class Money implements Failable
         /** @var ValidationContext $context */
         $context = $value
                 |> StringValue::from(...)
+                // Check if is empty
                 |> StringValue::notEmpty("Money string cannot be empty")
+                // Strip leading/trailing whitespace
                 |> StringValue::trim()
+                // Extract amount and currency from the string
                 |> StringValue::regex('/^(\d+(?:\.\d{1,2})?)([€$])$/u', "Invalid money format. Expected format: '100.00€' or '100.00$'")
+                // Extract amount and currency from the regex match
+                |> ArrayValue::mapKeys([1 => 'amount', 2 => 'currency'])
                 |> ArrayValue::map(
-                    fn(array $matches) => [
-                        'amount' => $matches[1], // The decimal amount string
-                        'currency' => $matches[2] // The currency symbol
+                    fn(array $toParse) => [
+                        // Parse amount to int and convert in cents
+                        'amount' => Money::parseAmount($toParse['amount']),
+                        // Parse currency to Currency Enum
+                        'currency' => Money::parseCurrency($toParse['currency']),
                     ])
-                |> ArrayValue::map(
-                    fn(array $parsed) => [
-                        'amount' => (int)round((float)$parsed['amount'] * 100), // Convert to cents
-                        'currency' => match ($parsed['currency']) {
-                            '€' => Currency::EUR,
-                            '$' => Currency::USD,
-                            default => null,
-                        }
-                    ])
+                // Validate that currency is supported (very rare case)
                 |> ArrayValue::validateArray(
                     fn(array $parsed) => $parsed['currency'] !== null,
                     "Unsupported currency symbol"
                 )
+                // Create the Money object
                 |> ArrayValue::map(
                     fn(array $parsed) => self::create($parsed['amount'], $parsed['currency'])
                 );
@@ -54,6 +54,20 @@ readonly final class Money implements Failable
         return $context->isValid()
             ? $context->getValue()
             : $context->getErrors();
+    }
+
+    private static function parseAmount(string $amount): int
+    {
+        return (int)round((float)$amount * 100); // Convert to cents
+    }
+
+    private static function parseCurrency(string $currency): Currency|null
+    {
+        return match ($currency) {
+            '€' => Currency::EUR,
+            '$' => Currency::USD,
+            default => null,
+        };
     }
 
     public static function create(mixed $amount, Currency $currency): Money|ErrorsBag

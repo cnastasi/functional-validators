@@ -7,8 +7,8 @@ readonly class ArrayValue extends ValidationContext
     public static function from(mixed $value): ValidationContext
     {
         return $value
-            |> ArrayValue::of(...)
-            |> ArrayValue::isArray();
+                |> ArrayValue::of(...)
+                |> ArrayValue::isArray();
     }
 
     public static function isArray(?string $errorMessage = null): \Closure
@@ -29,31 +29,44 @@ readonly class ArrayValue extends ValidationContext
 
     /**
      * Map array values - only operates if value is an array, otherwise passes through
-     * 
+     *
      * @param callable $mapper Function that transforms the array
      * @return \Closure Closure that takes ValidationContext and returns ValidationContext
      */
     public static function map(callable $mapper): \Closure
     {
-        return static fn(ValidationContext $context) => 
-            is_array($context->getValue())
-                ? $context->applyMap($mapper)
-                : $context;
+        return static fn(ValidationContext $context) => is_array($context->getValue())
+            ? $context->applyMap($mapper)
+            : $context;
+    }
+
+    public static function mapKeys(array $map): \Closure
+    {
+        return static fn(ValidationContext $context) => is_array($context->getValue())
+            ? $context->applyMap(static function (array $array) use ($map) {
+                $result = [];
+
+                foreach ($map as $index => $newIndex) {
+                    $result[$newIndex] = $array[$index];
+                }
+
+                return $result;
+            })
+            : $context;
     }
 
     /**
      * Validate array values - only operates if value is an array, otherwise passes through
-     * 
+     *
      * @param callable $predicate Function that validates the array
      * @param string $errorMessage Error message if validation fails
      * @return \Closure Closure that takes ValidationContext and returns ValidationContext
      */
     public static function validateArray(callable $predicate, string $errorMessage): \Closure
     {
-        return static fn(ValidationContext $context) => 
-            is_array($context->getValue())
-                ? $context->validate($predicate, $errorMessage)
-                : $context;
+        return static fn(ValidationContext $context) => is_array($context->getValue())
+            ? $context->validate($predicate, $errorMessage)
+            : $context;
     }
 }
 
